@@ -4,7 +4,6 @@ class Patient
   def initialize(name)
     @name = name
     @@all << self
-    @appointments = []
   end
 
   def self.all
@@ -13,6 +12,19 @@ class Patient
 
   def new_appointment(doctor, name)
     appointment = Appointment.new(self, doctor, date)
-    @appointments << appointment
   end
+
+  def appointments
+    Appointment.all.select{|appointment| appointment.patient == self}
+  end
+
+  def doctors
+    Appointment.all.map do |appointment|
+      if appointment.patient == self
+        appointment.doctor
+      end
+    end
+  end
+
+  
 end
