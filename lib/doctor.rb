@@ -18,4 +18,12 @@ class Doctor
     Appointment.all.select{|appointment| appointment.doctor == self}
   end
 
+  def patients
+    Appointment.all.map do |appointment|
+      if appointment.doctor == self
+        appointment.patient
+      end
+    end
+  end
+
 end
